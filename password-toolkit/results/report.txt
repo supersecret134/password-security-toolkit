@@ -1,33 +1,37 @@
-🔐 Password Security Audit Report
+=============================================
+🔐 PASSWORD SECURITY AUDIT REPORT
+=============================================
 
-Tool: Advanced Credential Security Assessment Toolkit
-Author: Amrit Singh
-Environment: Kali Linux
-Report Generated: 2026-04-12 12:46:31
+Generated On: 2026-04-12 15:42:24.609819
 
-🔍 Findings
-[HIGH RISK] admin123 → Weak (Commonly Used Password)
-[LOW RISK] STrongPASS@1234 → Strong Password
-[HIGH RISK] admin123 → Compromised (Identified via credential testing)
-🧠 Security Assessment Notes
-Dictionary-based testing successfully identified and validated weak credentials in minimal time.
-Strong passwords demonstrated resistance against brute-force attack attempts due to increased complexity and length.
+🔍 Findings:
+[HIGH RISK] Password Check: 1234 -> Weak
+[LOW RISK] Password Check: hweijwqgeuiwgeiuwgeuiug@1213 -> Strong
+[HIGH RISK] Dictionary Attack: SUCCESS (Password: test123)
+[LOW RISK] Brute Force: FAILED
+
+=============================================
 📊 Summary
-Total Passwords Evaluated: 3
-Weak Passwords Detected: 1
-Weak Password Ratio: 33.33%
-Overall Risk Level: HIGH
-⚠️ Risk Overview
+=============================================
+Total Passwords Tested : 4
+Weak Passwords Found  : 2
+Weak Password Rate    : 50.0%
 
-Weak or commonly used passwords significantly increase exposure to unauthorized access. Such credentials are highly susceptible to automated dictionary attacks and can be compromised rapidly if exposed.
+=============================================
+⚠️ Risk Analysis
+=============================================
+Weak passwords are highly vulnerable to dictionary and brute-force attacks.
+Attackers can compromise accounts within seconds if weak credentials are used.
 
+=============================================
 ✅ Security Recommendations
-Enforce a minimum password length of 12+ characters
-Require a mix of uppercase, lowercase, numbers, and special characters
-Block commonly used or breached passwords
-Enable Multi-Factor Authentication (MFA) across all accounts
-Implement periodic password rotation policies
-Use a secure password manager for credential storage
-📌 Conclusion
+=============================================
+- Use passwords with at least 12+ characters
+- Combine uppercase, lowercase, numbers, and symbols
+- Avoid common passwords (e.g., admin123, password)
+- Enable Multi-Factor Authentication (MFA)
+- Regularly update passwords
 
-The system demonstrates a high security risk level due to the presence of weak credentials. Immediate remediation is recommended to strengthen overall account security posture.
+=============================================
+End of Report
+=============================================

@@ -15,12 +15,21 @@ def generate_report(results):
         weak = 0
         total = len(results)
 
+        # ✅ FIXED LOOP
         for r in results:
-            if "Weak" in r:
+            if "Password Check" in r:
+                if "Weak" in r:
+                    f.write(f"[HIGH RISK] {r}\n")
+                    weak += 1
+                elif "Medium" in r:
+                    f.write(f"[MEDIUM RISK] {r}\n")
+                else:
+                    f.write(f"[LOW RISK] {r}\n")
+
+            elif "SUCCESS" in r:
                 f.write(f"[HIGH RISK] {r}\n")
                 weak += 1
-            elif "Medium" in r:
-                f.write(f"[MEDIUM RISK] {r}\n")
+
             else:
                 f.write(f"[LOW RISK] {r}\n")
 

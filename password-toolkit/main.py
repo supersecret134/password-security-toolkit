@@ -15,31 +15,53 @@ while True:
     print("5. Generate Report")
     print("6. Exit")
 
-    choice = input("Enter choice: ")
+    choice = input("Enter choice: ").strip()
 
     if choice == "1":
         generate_wordlist()
 
     elif choice == "2":
-        pwd = input("Enter password: ")
+        pwd = input("Enter password: ").strip()
         strength = check_strength(pwd)
-        print("Strength:", strength)
-        results.append(f"{pwd} -> {strength}")
+        print(f"Strength: {strength}")
+        results.append(f"Password Check: {pwd} -> {strength}")
 
     elif choice == "3":
-        hash_val = input("Enter hash: ")
-        algo = input("Algorithm (md5/sha1/sha256): ")
+        hash_val = input("Enter hash: ").strip()
+        algo = input("Algorithm (md5/sha1/sha256): ").lower().strip()
+
         cracked = dictionary_attack(hash_val, algo)
+
         if cracked:
-            results.append(f"Cracked: {cracked}")
+            print(f"✅ Password found: {cracked}")
+            results.append(f"Dictionary Attack: SUCCESS (Password: {cracked})")
+        else:
+            print("❌ Password not found")
+            results.append("Dictionary Attack: FAILED")
 
     elif choice == "4":
-        hash_val = input("Enter hash: ")
-        algo = input("Algorithm: ")
-        brute_force(hash_val, algo)
+        hash_val = input("Enter hash: ").strip()
+        algo = input("Algorithm (md5/sha1/sha256): ").lower().strip()
+
+        cracked = brute_force(hash_val, algo)
+
+        if cracked:
+            print(f"✅ Password found: {cracked}")
+            results.append(f"Brute Force: SUCCESS (Password: {cracked})")
+        else:
+            print("❌ Password not found")
+            results.append("Brute Force: FAILED")
 
     elif choice == "5":
-        generate_report(results)
+        if not results:
+            print("⚠️ No data to generate report.")
+        else:
+            generate_report(results)
+            print("📄 Report generated successfully!")
 
     elif choice == "6":
+        print("Exiting...")
         break
+
+    else:
+        print("Invalid choice. Try again.")
