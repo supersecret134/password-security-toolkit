@@ -1,0 +1,33 @@
+🔐 Password Security Audit Report
+
+Tool: Advanced Credential Security Assessment Toolkit
+Author: Amrit Singh
+Environment: Kali Linux
+Report Generated: 2026-04-12 12:46:31
+
+🔍 Findings
+[HIGH RISK] admin123 → Weak (Commonly Used Password)
+[LOW RISK] STrongPASS@1234 → Strong Password
+[HIGH RISK] admin123 → Compromised (Identified via credential testing)
+🧠 Security Assessment Notes
+Dictionary-based testing successfully identified and validated weak credentials in minimal time.
+Strong passwords demonstrated resistance against brute-force attack attempts due to increased complexity and length.
+📊 Summary
+Total Passwords Evaluated: 3
+Weak Passwords Detected: 1
+Weak Password Ratio: 33.33%
+Overall Risk Level: HIGH
+⚠️ Risk Overview
+
+Weak or commonly used passwords significantly increase exposure to unauthorized access. Such credentials are highly susceptible to automated dictionary attacks and can be compromised rapidly if exposed.
+
+✅ Security Recommendations
+Enforce a minimum password length of 12+ characters
+Require a mix of uppercase, lowercase, numbers, and special characters
+Block commonly used or breached passwords
+Enable Multi-Factor Authentication (MFA) across all accounts
+Implement periodic password rotation policies
+Use a secure password manager for credential storage
+📌 Conclusion
+
+The system demonstrates a high security risk level due to the presence of weak credentials. Immediate remediation is recommended to strengthen overall account security posture.
