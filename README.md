@@ -71,3 +71,88 @@ It simulates real-world techniques used in password auditing, including:
 ---
 
 ## 📊 FLOWCHART (TEXT)
+START
+↓
+Input Data
+↓
+Generate Wordlist
+↓
+Extract Hash
+↓
+Run Dictionary / Brute Force Attack
+↓
+Analyze Password Strength
+↓
+Generate Report
+↓
+END
+
+
+---
+
+## 🛠️ TECH STACK
+- Python 3  
+- hashlib  
+- os  
+- itertools  
+- time  
+
+---
+
+## 📁 PROJECT STRUCTURE
+
+password-security-toolkit/
+│
+├── main.py
+├── modules/
+│ ├── dictionary.py
+│ ├── brute_force.py
+│ ├── strength.py
+│ ├── cracker.py
+│ ├── hash_extractor.py
+│ ├── hash_utils.py
+│ ├── report.py
+│
+├── data/
+│ └── wordlist.txt
+│
+├── results/
+│ └── report.txt
+
+
+---
+
+## ⚙️ HOW TO RUN
+```bash
+python3 main.py
+☁️ RUN ON GITHUB CODESPACES
+Open repository on GitHub
+Click Code
+Go to Codespaces tab
+Click Create Codespace on main
+Run:
+python main.py
+📈 EXPECTED OUTPUT
+Generated wordlist
+Password strength results
+Cracked passwords (if weak)
+Attempt logs
+Security audit report
+⚠️ ETHICAL NOTICE
+
+This tool is for:
+
+Cybersecurity education
+Penetration testing labs
+Academic projects
+
+🚫 Do NOT use it on unauthorized systems.
+
+🚀 FUTURE IMPROVEMENTS
+AI-based password prediction
+GPU-based cracking simulation
+Web dashboard UI
+Advanced entropy analysis
+👨‍💻 AUTHOR
+
+Cybersecurity Toolkit Project (Educational Use)
