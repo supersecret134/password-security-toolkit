@@ -1,6 +1,8 @@
 import hashlib
 import string
 import itertools
+import time
+
 
 def hash_func(password, algo):
     if algo == "md5":
@@ -15,6 +17,8 @@ def hash_func(password, algo):
 
 def brute_force(hash_value, algo="md5"):
     print("\n⚡ Starting Brute Force Attack...\n")
+    start_time = time.time()
+    attempts = 0
 
     # =========================
     # 1. COMMON PASSWORDS
@@ -27,30 +31,52 @@ def brute_force(hash_value, algo="md5"):
     ]
 
     for p in common:
+        attempts += 1
         if hash_func(p, algo) == hash_value:
             print(f"✅ Found in common list: {p}")
+            print_stats(attempts, start_time)
             return p
 
     # =========================
-    # 2. NUMERIC BRUTE FORCE
+    # 2. SMALL CHARSET (SMART)
     # =========================
-    for i in range(1000000):
-        p = f"{i:06d}"
-        if hash_func(p, algo) == hash_value:
-            print(f"✅ Found numeric password: {p}")
-            return p
-
-    # =========================
-    # 3. SMALL CHARSET BRUTE FORCE
-    # =========================
-    chars = string.ascii_lowercase + string.digits
+    chars = string.ascii_lowercase
 
     for length in range(1, 4):
         for attempt in itertools.product(chars, repeat=length):
+            attempts += 1
             p = "".join(attempt)
+
+            if attempts % 50000 == 0:
+                print(f"⏳ Attempts: {attempts}")
+
             if hash_func(p, algo) == hash_value:
-                print(f"✅ Found brute force password: {p}")
+                print(f"✅ Found brute password: {p}")
+                print_stats(attempts, start_time)
                 return p
 
+    # =========================
+    # 3. NUMERIC BRUTE FORCE
+    # =========================
+    for i in range(1000000):
+        attempts += 1
+        p = f"{i:06d}"
+
+        if attempts % 100000 == 0:
+            print(f"⏳ Attempts: {attempts}")
+
+        if hash_func(p, algo) == hash_value:
+            print(f"✅ Found numeric password: {p}")
+            print_stats(attempts, start_time)
+            return p
+
     print("❌ Password not found in brute force range")
+    print_stats(attempts, start_time)
     return None
+
+
+def print_stats(attempts, start_time):
+    duration = time.time() - start_time
+    print("\n📊 Attack Stats:")
+    print(f"Total Attempts : {attempts}")
+    print(f"Time Taken     : {duration:.2f} seconds")
