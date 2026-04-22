@@ -1,149 +1,73 @@
-📌 OVERVIEW
+# 🔐 Password Cracking & Credential Attack Suite
+
+## 📌 OVERVIEW
 This project is a cybersecurity learning toolkit designed to demonstrate password security concepts in a controlled and ethical environment.
 
 It simulates real-world techniques used in password auditing, including:
-- Dictionary-based password testing
-- Brute-force simulation
-- Password strength analysis
-- Simulated hash extraction (Linux /etc/shadow format)
-- Security audit reporting
+
+- Dictionary-based password testing  
+- Brute-force simulation  
+- Password strength analysis  
+- Simulated hash extraction (Linux /etc/shadow format)  
+- Security audit reporting  
 
 ⚠️ This project is strictly for educational and authorized lab use only.
 
+---
 
-🎯 OBJECTIVES
-- Understand password vulnerabilities
-- Simulate password cracking techniques
-- Analyze password strength and entropy
-- Demonstrate secure password practices
-- Generate security audit reports
+## 🎯 OBJECTIVES
+- Understand password vulnerabilities  
+- Simulate password cracking techniques  
+- Analyze password strength and entropy  
+- Demonstrate secure password practices  
+- Generate security audit reports  
 
+---
 
-🧠 FEATURES
+## 🧠 FEATURES
 
-[1] Smart Wordlist Generator
-- Target-based wordlist creation
-- Pattern-based mutations (suffixes, years, capitalization)
-- Optional use of rockyou.txt
+### 1. Smart Wordlist Generator
+- Target-based wordlist creation  
+- Pattern-based mutations (suffixes, years, capitalization)  
+- Optional use of rockyou.txt  
 
-[2] Password Strength Analyzer
-- Complexity checking
-- Entropy estimation
-- Risk classification (Weak / Medium / Strong)
+### 2. Password Strength Analyzer
+- Complexity checking  
+- Entropy estimation  
+- Risk classification (Weak / Medium / Strong)  
 
-[3] Dictionary Attack Module
-- Uses generated or external wordlists
-- Fast hash comparison using hashlib
+### 3. Dictionary Attack Module
+- Uses generated or external wordlists  
+- Fast hash comparison using hashlib  
 
-[4] Brute Force Simulator
-- Common password testing
-- Numeric brute-force (000000–999999)
-- Short charset brute-force (a–z, 0–9)
+### 4. Brute Force Simulator
+- Common password testing  
+- Numeric brute-force (000000–999999)  
+- Short charset brute-force (a–z, 0–9)  
 
-[5] Hash Extraction Module
-- Simulates Linux /etc/shadow parsing
-- Identifies users and hash formats
+### 5. Hash Extraction Module
+- Simulates Linux /etc/shadow parsing  
+- Identifies users and hash formats  
 
-[6] Security Report Generator
-- Logs all test results
-- Risk classification
-- Security score calculation
-- Recommendations for improvement
+### 6. Security Report Generator
+- Logs all test results  
+- Risk classification  
+- Security score calculation  
+- Recommendations for improvement  
 
+---
 
-🔄 WORKFLOW
-1. User selects a module from CLI
-2. Wordlist is generated or loaded
-3. Hash is extracted (simulated)
-4. Dictionary / brute-force attack is executed
-5. Password strength is analyzed
-6. Results are stored
+## 🔄 WORKFLOW
+1. User selects a module from CLI  
+2. Wordlist is generated or loaded  
+3. Hash is extracted (simulated)  
+4. Dictionary / brute-force attack is executed  
+5. Password strength is analyzed  
+6. Results are stored  
 7. Final security audit report is generated
 
+   
 
-📊 FLOWCHART (TEXT)
-START
-↓
-Input Data
-↓
-Generate Wordlist
-↓
-Extract Hash
-↓
-Run Dictionary / Brute Force Attack
-↓
-Analyze Password Strength
-↓
-Generate Report
-↓
-END
+---
 
-
-🛠️ TECH STACK
-- Python 3
-- hashlib
-- os
-- itertools
-- time
-
-
-📁 PROJECT STRUCTURE
-password-security-toolkit/
- main.py
- modules/
-  dictionary.py
-  brute_force.py
-  strength.py
-  cracker.py
-  hash_extractor.py
-  hash_utils.py
-  report.py
- data/
-  wordlist.txt
- results/
-  report.txt
-
-
-⚙️ HOW TO RUN
-python3 main.py
-
-
-☁️ RUN ON GITHUB CODESPACES
-Steps:
-1. Open repository on GitHub
-2. Click Code
-3. Go to Codespaces tab
-4. Click "Create Codespace on main"
-5. Run: python main.py
-
-
-📈 EXPECTED OUTPUT
-- Generated wordlist
-- Password strength results
-- Cracked passwords (if weak)
-- Attempt logs
-- Security audit report
-
-
-⚠️ ETHICAL NOTICE
-This tool is for:
-- Cybersecurity education
-- Penetration testing labs
-- Academic projects
-
-🚫 Do NOT use it on unauthorized systems.
-
-
-🚀 FUTURE IMPROVEMENTS
-- AI-based password prediction
-- GPU-based cracking simulation
-- Web dashboard UI
-- Advanced entropy analysis
-
-
-👨‍💻 AUTHOR
-Cybersecurity Toolkit Project (Educational Use)
-
-
-⭐ LICENSE
-For educational use only.
+## 📊 FLOWCHART (TEXT)
