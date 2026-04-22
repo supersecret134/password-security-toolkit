@@ -53,31 +53,25 @@ def check_strength(password):
         charset += 32
         details.append("symbols")
 
-    entropy = length * math.log2(charset) if charset else 0
+    entropy = length * math.log2(charset) if charset > 0 else 0
 
     pattern_flag = has_common_pattern(password)
 
-    # 🔥 FINAL REALISTIC CLASSIFICATION (FIXED INDENTATION)
-    if pattern_flag and length < 12:
+    # ✅ Clean classification logic
+    if entropy < 40:
         strength = "Weak"
-
-    elif pattern_flag:
-        strength = "Medium"
-
-    elif length < 8:
-        strength = "Weak"
-
-    elif length < 12:
-        strength = "Medium"
-
-    elif not (has_lower and has_upper and has_digit and has_symbol):
-        strength = "Medium"
 
     elif entropy < 70:
         strength = "Medium"
 
     else:
         strength = "Strong"
+
+    # downgrade if pattern found
+    if pattern_flag and strength == "Strong":
+        strength = "Medium"
+    elif pattern_flag and strength == "Medium":
+        strength = "Weak"
 
     # Output
     print(f"Strength: {strength}")
