@@ -19,25 +19,25 @@ Analyze password strength and entropy
 Demonstrate secure password practices
 Generate security audit reports
 🧠 Features
-1. Smart Wordlist Generator
+🔹 Smart Wordlist Generator
 Target-based wordlist creation
 Pattern-based mutations (suffixes, years, capitalization)
 Optional use of rockyou.txt
-2. Password Strength Analyzer
+🔹 Password Strength Analyzer
 Complexity checking
 Entropy estimation
 Risk classification (Weak / Medium / Strong)
-3. Dictionary Attack Module
+🔹 Dictionary Attack Module
 Uses generated or external wordlists
 Fast hash comparison using hashlib
-4. Brute Force Simulator
+🔹 Brute Force Simulator
 Common password testing
 Numeric brute-force (000000–999999)
 Short charset brute-force (a–z, 0–9)
-5. Hash Extraction Module
+🔹 Hash Extraction Module
 Simulates Linux /etc/shadow parsing
 Identifies users and hash formats
-6. Security Report Generator
+🔹 Security Report Generator
 Logs all test results
 Risk classification
 Security score calculation
@@ -99,11 +99,11 @@ python3 main.py
 You can run this project directly in the browser without installing anything.
 
 Steps:
-Open this repository on GitHub
+Open the repository on GitHub
 Click Code
-Go to Codespaces tab
+Go to the Codespaces tab
 Click Create Codespace on main
-Wait for environment to load
+Wait for the environment to load
 Run:
 python main.py
 Expected Output:
