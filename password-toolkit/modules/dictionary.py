@@ -25,7 +25,7 @@ def generate_wordlist():
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
     output_file = os.path.join(BASE_DIR, "data", "wordlist.txt")
 
-    # ✅ ensure folder exists
+    # ensure folder exists
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
     print("1. Custom Wordlist")
@@ -34,7 +34,7 @@ def generate_wordlist():
     choice = input("Select option: ").strip()
 
     # =========================
-    # ✅ CUSTOM WORDLIST FIXED
+    # ✅ CUSTOM WORDLIST
     # =========================
     if choice == "1":
 
@@ -42,32 +42,78 @@ def generate_wordlist():
         dob = input("Enter birth year: ").strip()
         keyword = input("Enter keyword: ").strip()
 
-        base_words = [name, keyword]
+        # 🔥 NEW: limit control
+        limit_input = input("How many entries to generate? (default 1000): ").strip()
+        try:
+            limit = int(limit_input)
+        except:
+            limit = 1000
 
+        base_words = [name, keyword]
         numbers = ["", "123", "1234", dob]
         symbols = ["", "!", "@", "#"]
+
+        count = 0
 
         for word in base_words:
             if not is_clean(word):
                 continue
 
-            # basic forms
-            wordlist.add(word.lower())
-            wordlist.add(word.upper())
-            wordlist.add(word.capitalize())
+            variations = [
+                word.lower(),
+                word.upper(),
+                word.capitalize()
+            ]
 
-            # combinations
+            for v in variations:
+                if count >= limit:
+                    break
+                wordlist.add(v)
+                count += 1
+
             for num in numbers:
                 for sym in symbols:
-                    wordlist.add(f"{word}{num}{sym}")
-                    wordlist.add(f"{sym}{word}{num}")
+                    if count >= limit:
+                        break
 
-        # optional combos
+                    w1 = f"{word}{num}{sym}"
+                    w2 = f"{sym}{word}{num}"
+
+                    if is_clean(w1):
+                        wordlist.add(w1)
+                        count += 1
+
+                    if count >= limit:
+                        break
+
+                    if is_clean(w2):
+                        wordlist.add(w2)
+                        count += 1
+
+                if count >= limit:
+                    break
+
+            if count >= limit:
+                break
+
+        # 🔥 combinations (controlled)
         for combo in itertools.permutations(base_words, 2):
+            if count >= limit:
+                break
+
             combined = "".join(combo)
+
             if is_clean(combined):
                 wordlist.add(combined)
-                wordlist.add(combined + "123")
+                count += 1
+
+            if count >= limit:
+                break
+
+            combo2 = combined + "123"
+            if is_clean(combo2):
+                wordlist.add(combo2)
+                count += 1
 
     # =========================
     # ROCKYOU
@@ -101,4 +147,4 @@ def generate_wordlist():
             f.write(w + "\n")
 
     print(f"✅ Saved: {output_file}")
-    print(f"📊 Total words: {len(wordlist)}")
+    print(f"📊 Generated: {len(wordlist)} entries")
