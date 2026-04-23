@@ -16,9 +16,23 @@ def has_common_pattern(password):
         if pattern in password_lower:
             return True
 
+    # repeated characters (aaa, 111)
     for i in range(len(password) - 2):
         if password[i] == password[i+1] == password[i+2]:
             return True
+
+    return False
+
+
+# 🔥 NEW: dictionary check
+def is_in_wordlist(password):
+    try:
+        with open("data/wordlist.txt", "r") as f:
+            for line in f:
+                if password == line.strip():
+                    return True
+    except:
+        return False
 
     return False
 
@@ -28,6 +42,9 @@ def check_strength(password):
 
     password_lower = password.lower().strip()
 
+    # =========================
+    # COMMON PASSWORD CHECK
+    # =========================
     if password_lower in [p.lower() for p in COMMON_PASSWORDS]:
         print("Strength: Weak")
         print("Reason: Common password\n")
@@ -59,12 +76,15 @@ def check_strength(password):
     entropy = length * math.log2(charset) if charset else 0
 
     pattern_flag = has_common_pattern(password)
+    dictionary_flag = is_in_wordlist(password)
 
-    # FINAL CLASSIFICATION (IMPROVED ORDER)
+    # =========================
+    # FINAL CLASSIFICATION
+    # =========================
     if length < 8:
         strength = "Weak"
 
-    elif pattern_flag and length < 12:
+    elif (pattern_flag or dictionary_flag) and length < 12:
         strength = "Weak"
 
     elif entropy < 50:
@@ -79,10 +99,16 @@ def check_strength(password):
     else:
         strength = "Strong"
 
+    # =========================
+    # OUTPUT
+    # =========================
     print(f"Strength: {strength}")
     print(f"Entropy: {entropy:.2f} bits")
     print(f"Length: {length}")
     print(f"Character Set Used: {', '.join(details)}")
+
+    if dictionary_flag:
+        print("⚠️ Password found in wordlist (dictionary attack risk)")
 
     print("\nRecommendations:")
 
@@ -98,6 +124,8 @@ def check_strength(password):
         print("- Include special characters")
     if pattern_flag:
         print("- Avoid common patterns")
+    if dictionary_flag:
+        print("- Avoid dictionary-based passwords")
 
     print()
     return strength
