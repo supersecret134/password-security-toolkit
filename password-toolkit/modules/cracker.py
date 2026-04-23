@@ -1,49 +1,52 @@
-from modules.hash_utils import hash_word
-import time
 import os
+import time
+from modules.hash_utils import hash_word
 
 def dictionary_attack(hash_value, algo):
     attempts = 0
     start = time.time()
 
-    wordlist_path = "data/wordlist.txt"
+    # ✅ FIXED: stable project root path
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+    wordlist_path = os.path.join(BASE_DIR, "data", "wordlist.txt")
 
-    # =========================
-    # FILE CHECK (IMPORTANT FIX)
-    # =========================
+    hash_value = hash_value.strip().lower()
+
+    print("\n⚡ Starting Dictionary Attack...\n")
+    print(f"📂 Wordlist: {wordlist_path}\n")
+
     if not os.path.exists(wordlist_path):
-        print("❌ Wordlist not found. Generate it first.")
+        print("❌ Wordlist not found.")
         return None
 
-    try:
-        with open(wordlist_path, "r", encoding="utf-8", errors="ignore") as f:
+    with open(wordlist_path, "r", encoding="utf-8", errors="ignore") as f:
 
-            for word in f:
-                word = word.strip()
-                if not word:
-                    continue
+        for word in f:
+            word = word.strip()
 
-                attempts += 1
+            if not word:
+                continue
 
-                # =========================
-                # HASH CHECK
-                # =========================
-                if hash_word(word, algo) == hash_value:
+            attempts += 1
 
-                    end = time.time()
+            hashed = hash_word(word, algo)
 
-                    print(f"\n✅ Cracked: {word}")
-                    print(f"Attempts: {attempts}")
-                    print(f"Time: {round(end - start, 2)}s")
+            if not hashed:
+                continue
 
-                    return word
+            hashed = hashed.strip().lower()
 
-        # =========================
-        # NOT FOUND
-        # =========================
-        print("❌ Not found in dictionary attack")
-        return None
+            if hashed == hash_value:
+                print("\n\n=================================")
+                print("✅ PASSWORD FOUND")
+                print(f"Password : {word}")
+                print(f"Attempts : {attempts}")
+                print(f"Time     : {round(time.time() - start, 2)} sec")
+                print("=================================\n")
+                return word
 
-    except Exception as e:
-        print(f"❌ Error: {e}")
-        return None
+            if attempts % 5000 == 0:
+                print(f"Trying [{attempts}] {word[:30]}", end="\r")
+
+    print("\n❌ Not found in dictionary attack")
+    return None
