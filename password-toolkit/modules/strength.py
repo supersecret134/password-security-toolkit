@@ -8,6 +8,7 @@ COMMON_PATTERNS = [
     "qwerty", "abc", "111", "000"
 ]
 
+
 def has_common_pattern(password):
     password_lower = password.lower()
 
@@ -25,7 +26,9 @@ def has_common_pattern(password):
 def check_strength(password):
     print(f"\nPassword: {password}")
 
-    if password.lower() in COMMON_PASSWORDS:
+    password_lower = password.lower().strip()
+
+    if password_lower in [p.lower() for p in COMMON_PASSWORDS]:
         print("Strength: Weak")
         print("Reason: Common password\n")
         return "Weak"
@@ -53,27 +56,29 @@ def check_strength(password):
         charset += 32
         details.append("symbols")
 
-    entropy = length * math.log2(charset) if charset > 0 else 0
+    entropy = length * math.log2(charset) if charset else 0
 
     pattern_flag = has_common_pattern(password)
 
-    # ✅ Clean classification logic
-    if entropy < 40:
+    # FINAL CLASSIFICATION (IMPROVED ORDER)
+    if length < 8:
+        strength = "Weak"
+
+    elif pattern_flag and length < 12:
+        strength = "Weak"
+
+    elif entropy < 50:
         strength = "Weak"
 
     elif entropy < 70:
         strength = "Medium"
 
+    elif not (has_lower and has_upper and has_digit and has_symbol):
+        strength = "Medium"
+
     else:
         strength = "Strong"
 
-    # downgrade if pattern found
-    if pattern_flag and strength == "Strong":
-        strength = "Medium"
-    elif pattern_flag and strength == "Medium":
-        strength = "Weak"
-
-    # Output
     print(f"Strength: {strength}")
     print(f"Entropy: {entropy:.2f} bits")
     print(f"Length: {length}")
@@ -92,7 +97,7 @@ def check_strength(password):
     if not has_symbol:
         print("- Include special characters")
     if pattern_flag:
-        print("- Avoid common patterns like 'admin', '12345', 'password'")
+        print("- Avoid common patterns")
 
     print()
     return strength
