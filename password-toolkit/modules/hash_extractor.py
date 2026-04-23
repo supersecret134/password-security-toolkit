@@ -13,19 +13,30 @@ def detect_hash_type(hash_value):
         return "MD5 crypt"
     elif hash_value in ["*", "!", "!!", ""]:
         return "Disabled / Locked account"
+
+    # 🔥 NEW: length-based detection
+    elif len(hash_value) == 32:
+        return "MD5 / NTLM"
+    elif len(hash_value) == 40:
+        return "SHA1"
+    elif len(hash_value) == 64:
+        return "SHA256"
     else:
         return "Unknown"
 
 
 def extract_hashes():
     print("\n=== Hash Extraction Module ===")
-    print("⚠️ Auto-detecting hash file...\n")
+    print("⚠️ Educational / demo use only")
+    print("🔍 Auto-detecting hash file...\n")
 
+    # 🔥 Added Windows simulation paths
     possible_paths = [
-        "/etc/shadow",
+        "/etc/shadow",                  # Linux
         "/etc/passwd",
-        "data/hashes.txt",
-        "hashes.txt"
+        "data/hashes.txt",              # Custom file
+        "hashes.txt",
+        "data/windows_hashes.txt"       # Simulated Windows hashes
     ]
 
     file_path = None
@@ -36,8 +47,9 @@ def extract_hashes():
             break
 
     if not file_path:
-        print("❌ No hash file found in default locations.")
-        print("👉 Place a file in 'data/hashes.txt' or run as root for /etc/shadow\n")
+        print("❌ No hash file found.")
+        print("👉 Place file in 'data/hashes.txt' or 'data/windows_hashes.txt'")
+        print("👉 Linux shadow requires sudo\n")
         return []
 
     print(f"📂 Using file: {file_path}\n")
@@ -56,7 +68,7 @@ def extract_hashes():
             if ":" not in line:
                 continue
 
-            parts = line.split(":", 2)
+            parts = line.split(":")
 
             username = parts[0]
             hash_value = parts[1] if len(parts) > 1 else ""
@@ -69,9 +81,9 @@ def extract_hashes():
                 "type": algo
             })
 
-            print(f"User : {username}")
-            print(f"Hash : {hash_value}")
-            print(f"Type : {algo}\n")
+            print(f"👤 User : {username}")
+            print(f"🔑 Hash : {hash_value}")
+            print(f"🧠 Type : {algo}\n")
 
         print("✅ Hash extraction completed!\n")
         return extracted
