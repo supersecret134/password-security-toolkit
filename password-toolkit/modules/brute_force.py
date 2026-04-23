@@ -2,6 +2,7 @@ import hashlib
 import string
 import itertools
 
+
 def hash_func(password, algo):
     password = password.encode()
 
@@ -20,7 +21,35 @@ def brute_force(hash_value, algo="md5"):
     hash_value = hash_value.strip().lower()
 
     # =========================
-    # 1. COMMON PASSWORDS
+    # USER INPUT
+    # =========================
+    try:
+        max_length = int(input("Enter max password length (e.g. 4): "))
+    except:
+        max_length = 4
+
+    # 🔥 FULL CHARSET (FIXED)
+    chars = (
+        string.ascii_lowercase +
+        string.ascii_uppercase +
+        string.digits +
+        string.punctuation
+    )
+
+    # =========================
+    # TIME ESTIMATION
+    # =========================
+    charset_size = len(chars)
+    total_combinations = sum(charset_size ** i for i in range(1, max_length + 1))
+
+    attempts_per_sec = 1_000_000  # simulated
+    estimated_time = total_combinations / attempts_per_sec
+
+    print(f"🧠 Total combinations: {total_combinations}")
+    print(f"⏱ Estimated time: {round(estimated_time, 2)} seconds\n")
+
+    # =========================
+    # COMMON PASSWORDS
     # =========================
     common = [
         "admin", "password", "123456", "12345678",
@@ -35,7 +64,7 @@ def brute_force(hash_value, algo="md5"):
             return p
 
     # =========================
-    # 2. NUMERIC BRUTE FORCE
+    # NUMERIC BRUTE FORCE
     # =========================
     for i in range(1000000):
         p = f"{i:06d}"
@@ -44,11 +73,11 @@ def brute_force(hash_value, algo="md5"):
             return p
 
     # =========================
-    # 3. SMALL CHARSET BRUTE FORCE
+    # INCREMENTAL BRUTE FORCE
     # =========================
-    chars = string.ascii_lowercase + string.digits
+    for length in range(1, max_length + 1):
+        print(f"🔍 Trying length: {length}")
 
-    for length in range(1, 4):
         for attempt in itertools.product(chars, repeat=length):
             p = "".join(attempt)
 
